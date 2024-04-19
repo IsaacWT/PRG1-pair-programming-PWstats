@@ -11,16 +11,21 @@ if (fs.existsSync(outputFile)) { // check for existing output file
 const data = fs.readFileSync(inputFile, "utf-8");
 const lines = data.split(/\n/);
 
-const passwordLengthTotal = new Array(20).fill(0);
-const arr = Array.from({length: 20}, (e, i)=> i)
+const passwordLengthTotal = new Array(21).fill(0);
+let passwordsStartingWithA = (0);
 
 for (line of lines) {
       
   const elements = line.split(delimiter);
-  const passwordLength = elements[1].length;
+  const password = elements[1];
+  const passwordLength = password.length;
   passwordLengthTotal[passwordLength]++;
+  if (password.toLowerCase().startsWith("a")){
+    passwordsStartingWithA++;
+  }
 } 
       
 for (i = 0; i < passwordLengthTotal.length; i++){
-fs.appendFileSync(outputFile, `Chars: ${arr[i]}, Count: ${passwordLengthTotal[i]} \n`, "utf-8");
+  fs.appendFileSync(outputFile, `Chars: ${[i]}, Count: ${passwordLengthTotal[i]} \n`, "utf-8");
 }      
+console.log(`There are ${passwordsStartingWithA} passwords that start with "a"`);
